@@ -26,20 +26,20 @@ import (
 	"strings"
 	"syscall"
 
-	cadvisorhttp "github.com/google/cadvisor/cmd/internal/http"
-	"github.com/google/cadvisor/container"
-	"github.com/google/cadvisor/manager"
-	"github.com/google/cadvisor/metrics"
-	"github.com/google/cadvisor/utils/sysfs"
-	"github.com/google/cadvisor/version"
+	cadvisorhttp "github.com/yidoyoon/cadvisor-lite/cmd/internal/http"
+	"github.com/yidoyoon/cadvisor-lite/container"
+	"github.com/yidoyoon/cadvisor-lite/manager"
+	"github.com/yidoyoon/cadvisor-lite/metrics"
+	"github.com/yidoyoon/cadvisor-lite/utils/sysfs"
+	"github.com/yidoyoon/cadvisor-lite/version"
 
 	// Register container providers
-	_ "github.com/google/cadvisor/cmd/internal/container/install"
+	_ "github.com/yidoyoon/cadvisor-lite/cmd/internal/container/install"
 
 	// Register CloudProviders
-	_ "github.com/google/cadvisor/utils/cloudinfo/aws"
-	_ "github.com/google/cadvisor/utils/cloudinfo/azure"
-	_ "github.com/google/cadvisor/utils/cloudinfo/gce"
+	_ "github.com/yidoyoon/cadvisor-lite/utils/cloudinfo/aws"
+	_ "github.com/yidoyoon/cadvisor-lite/utils/cloudinfo/azure"
+	_ "github.com/yidoyoon/cadvisor-lite/utils/cloudinfo/gce"
 
 	"k8s.io/klog/v2"
 )

@@ -20,7 +20,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/google/cadvisor/devicemapper/fake"
+	"github.com/yidoyoon/cadvisor-lite/devicemapper/fake"
 )
 
 func TestRefresh(t *testing.T) {

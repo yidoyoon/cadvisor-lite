@@ -30,14 +30,14 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/google/cadvisor/cache/memory"
-	"github.com/google/cadvisor/collector"
-	"github.com/google/cadvisor/container"
-	info "github.com/google/cadvisor/info/v1"
-	v2 "github.com/google/cadvisor/info/v2"
-	"github.com/google/cadvisor/stats"
-	"github.com/google/cadvisor/summary"
-	"github.com/google/cadvisor/utils/cpuload"
+	"github.com/yidoyoon/cadvisor-lite/cache/memory"
+	"github.com/yidoyoon/cadvisor-lite/collector"
+	"github.com/yidoyoon/cadvisor-lite/container"
+	info "github.com/yidoyoon/cadvisor-lite/info/v1"
+	v2 "github.com/yidoyoon/cadvisor-lite/info/v2"
+	"github.com/yidoyoon/cadvisor-lite/stats"
+	"github.com/yidoyoon/cadvisor-lite/summary"
+	"github.com/yidoyoon/cadvisor-lite/utils/cpuload"
 
 	"github.com/docker/go-units"
 

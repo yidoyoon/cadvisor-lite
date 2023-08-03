@@ -25,8 +25,8 @@ import (
 	"strings"
 	"time"
 
-	info "github.com/google/cadvisor/info/v1"
-	"github.com/google/cadvisor/manager"
+	info "github.com/yidoyoon/cadvisor-lite/info/v1"
+	"github.com/yidoyoon/cadvisor-lite/manager"
 
 	"k8s.io/klog/v2"
 )

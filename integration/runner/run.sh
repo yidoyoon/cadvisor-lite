@@ -30,7 +30,7 @@ if ! git diff --name-only origin/master | grep -c -E "*.go|*.sh" &> /dev/null; t
 fi
 
 # Build the runner.
-go build github.com/google/cadvisor/integration/runner
+go build github.com/yidoyoon/cadvisor-lite/integration/runner
 
 # Run it.
 HOSTS=$@

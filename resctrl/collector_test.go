@@ -26,7 +26,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	info "github.com/google/cadvisor/info/v1"
+	info "github.com/yidoyoon/cadvisor-lite/info/v1"
 )
 
 func TestNewCollectorWithSetup(t *testing.T) {

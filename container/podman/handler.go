@@ -24,15 +24,15 @@ import (
 	dockercontainer "github.com/docker/docker/api/types/container"
 	"github.com/opencontainers/runc/libcontainer/cgroups"
 
-	"github.com/google/cadvisor/container"
-	"github.com/google/cadvisor/container/common"
-	"github.com/google/cadvisor/container/docker"
-	dockerutil "github.com/google/cadvisor/container/docker/utils"
-	containerlibcontainer "github.com/google/cadvisor/container/libcontainer"
-	"github.com/google/cadvisor/devicemapper"
-	"github.com/google/cadvisor/fs"
-	info "github.com/google/cadvisor/info/v1"
-	"github.com/google/cadvisor/zfs"
+	"github.com/yidoyoon/cadvisor-lite/container"
+	"github.com/yidoyoon/cadvisor-lite/container/common"
+	"github.com/yidoyoon/cadvisor-lite/container/docker"
+	dockerutil "github.com/yidoyoon/cadvisor-lite/container/docker/utils"
+	containerlibcontainer "github.com/yidoyoon/cadvisor-lite/container/libcontainer"
+	"github.com/yidoyoon/cadvisor-lite/devicemapper"
+	"github.com/yidoyoon/cadvisor-lite/fs"
+	info "github.com/yidoyoon/cadvisor-lite/info/v1"
+	"github.com/yidoyoon/cadvisor-lite/zfs"
 )
 
 type podmanContainerHandler struct {

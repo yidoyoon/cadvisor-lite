@@ -23,24 +23,24 @@ import (
 	"testing"
 	"time"
 
-	"github.com/google/cadvisor/cache/memory"
-	"github.com/google/cadvisor/collector"
-	"github.com/google/cadvisor/container"
-	containertest "github.com/google/cadvisor/container/testing"
-	info "github.com/google/cadvisor/info/v1"
-	itest "github.com/google/cadvisor/info/v1/test"
-	v2 "github.com/google/cadvisor/info/v2"
-	"github.com/google/cadvisor/utils/sysfs/fakesysfs"
+	"github.com/yidoyoon/cadvisor-lite/cache/memory"
+	"github.com/yidoyoon/cadvisor-lite/collector"
+	"github.com/yidoyoon/cadvisor-lite/container"
+	containertest "github.com/yidoyoon/cadvisor-lite/container/testing"
+	info "github.com/yidoyoon/cadvisor-lite/info/v1"
+	itest "github.com/yidoyoon/cadvisor-lite/info/v1/test"
+	v2 "github.com/yidoyoon/cadvisor-lite/info/v2"
+	"github.com/yidoyoon/cadvisor-lite/utils/sysfs/fakesysfs"
 
 	"github.com/stretchr/testify/assert"
 	clock "k8s.io/utils/clock/testing"
 
 	// install all the container runtimes included in the library version for testing.
 	// as these are moved to cmd/internal/container, remove them from here.
-	_ "github.com/google/cadvisor/container/containerd/install"
-	_ "github.com/google/cadvisor/container/crio/install"
-	_ "github.com/google/cadvisor/container/docker/install"
-	_ "github.com/google/cadvisor/container/systemd/install"
+	_ "github.com/yidoyoon/cadvisor-lite/container/containerd/install"
+	_ "github.com/yidoyoon/cadvisor-lite/container/crio/install"
+	_ "github.com/yidoyoon/cadvisor-lite/container/docker/install"
+	_ "github.com/yidoyoon/cadvisor-lite/container/systemd/install"
 )
 
 // TODO(vmarmol): Refactor these tests.

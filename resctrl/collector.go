@@ -28,7 +28,7 @@ import (
 
 	"k8s.io/klog/v2"
 
-	info "github.com/google/cadvisor/info/v1"
+	info "github.com/yidoyoon/cadvisor-lite/info/v1"
 )
 
 const noInterval = 0

@@ -15,7 +15,7 @@
 package summary
 
 import (
-	info "github.com/google/cadvisor/info/v2"
+	info "github.com/yidoyoon/cadvisor-lite/info/v2"
 )
 
 // Manages a buffer of usage samples.

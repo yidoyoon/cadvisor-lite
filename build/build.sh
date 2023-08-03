@@ -59,7 +59,7 @@ if [ "${OUTPUT_NAME_WITH_ARCH}" = "true" ] ; then
   output_file="${output_file}-${version}-${GOOS}-${GOARCH}"
 fi
 
-# Since github.com/google/cadvisor/cmd is a submodule, we must build from inside that directory
+# Since github.com/yidoyoon/cadvisor-lite/cmd is a submodule, we must build from inside that directory
 pushd cmd > /dev/null
   go build ${GO_FLAGS} -ldflags "${ldflags}" -o "${output_file}" "${repo_path}/cmd"
 popd > /dev/null

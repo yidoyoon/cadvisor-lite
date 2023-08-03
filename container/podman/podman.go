@@ -25,9 +25,9 @@ import (
 	dockertypes "github.com/docker/docker/api/types"
 	"github.com/pkg/errors"
 
-	"github.com/google/cadvisor/container/docker"
-	"github.com/google/cadvisor/container/docker/utils"
-	v1 "github.com/google/cadvisor/info/v1"
+	"github.com/yidoyoon/cadvisor-lite/container/docker"
+	"github.com/yidoyoon/cadvisor-lite/container/docker/utils"
+	v1 "github.com/yidoyoon/cadvisor-lite/info/v1"
 )
 
 const (

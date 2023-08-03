@@ -17,8 +17,8 @@ package install
 import (
 	"k8s.io/klog/v2"
 
-	"github.com/google/cadvisor/container"
-	"github.com/google/cadvisor/container/podman"
+	"github.com/yidoyoon/cadvisor-lite/container"
+	"github.com/yidoyoon/cadvisor-lite/container/podman"
 )
 
 func init() {

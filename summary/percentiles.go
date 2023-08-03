@@ -21,7 +21,7 @@ import (
 	"math"
 	"sort"
 
-	info "github.com/google/cadvisor/info/v2"
+	info "github.com/yidoyoon/cadvisor-lite/info/v2"
 )
 
 const secondsToMilliSeconds = 1000

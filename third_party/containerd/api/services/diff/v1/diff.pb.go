@@ -6,7 +6,7 @@ package diff
 import (
 	context "context"
 	fmt "fmt"
-	types "github.com/google/cadvisor/third_party/containerd/api/types"
+	types "github.com/yidoyoon/cadvisor-lite/third_party/containerd/api/types"
 	proto "github.com/gogo/protobuf/proto"
 	github_com_gogo_protobuf_sortkeys "github.com/gogo/protobuf/sortkeys"
 	types1 "github.com/gogo/protobuf/types"
