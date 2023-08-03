@@ -107,47 +107,54 @@ type ContainerSpec struct {
 
 type DeprecatedContainerStats struct {
 	// The time of this stat point.
-	Timestamp time.Time `json:"timestamp"`
-	// CPU statistics
-	HasCpu bool `json:"has_cpu"`
-	// In nanoseconds (aggregated)
-	Cpu v1.CpuStats `json:"cpu,omitempty"`
-	// In nanocores per second (instantaneous)
-	CpuInst *CpuInstStats `json:"cpu_inst,omitempty"`
-	// Disk IO statistics
-	HasDiskIo bool           `json:"has_diskio"`
-	DiskIo    v1.DiskIoStats `json:"diskio,omitempty"`
-	// Memory statistics
+	Timestamp time.Time      `json:"timestamp"`
 	HasMemory bool           `json:"has_memory"`
 	Memory    v1.MemoryStats `json:"memory,omitempty"`
-	// Hugepage statistics
-	HasHugetlb bool                       `json:"has_hugetlb"`
-	Hugetlb    map[string]v1.HugetlbStats `json:"hugetlb,omitempty"`
-	// Network statistics
-	HasNetwork bool         `json:"has_network"`
-	Network    NetworkStats `json:"network,omitempty"`
-	// Processes statistics
-	HasProcesses bool            `json:"has_processes"`
-	Processes    v1.ProcessStats `json:"processes,omitempty"`
-	// Filesystem statistics
-	HasFilesystem bool         `json:"has_filesystem"`
-	Filesystem    []v1.FsStats `json:"filesystem,omitempty"`
-	// Task load statistics
-	HasLoad bool         `json:"has_load"`
-	Load    v1.LoadStats `json:"load_stats,omitempty"`
-	// Custom Metrics
-	HasCustomMetrics bool                      `json:"has_custom_metrics"`
-	CustomMetrics    map[string][]v1.MetricVal `json:"custom_metrics,omitempty"`
-	// Perf events counters
-	PerfStats []v1.PerfStat `json:"perf_stats,omitempty"`
-	// Statistics originating from perf uncore events.
-	// Applies only for root container.
-	PerfUncoreStats []v1.PerfUncoreStat `json:"perf_uncore_stats,omitempty"`
-	// Referenced memory
-	ReferencedMemory uint64 `json:"referenced_memory,omitempty"`
-	// Resource Control (resctrl) statistics
-	Resctrl v1.ResctrlStats `json:"resctrl,omitempty"`
 }
+
+//type DeprecatedContainerStats struct {
+//	// The time of this stat point.
+//	Timestamp time.Time `json:"timestamp"`
+//	// CPU statistics
+//	HasCpu bool `json:"has_cpu"`
+//	// In nanoseconds (aggregated)
+//	Cpu v1.CpuStats `json:"cpu,omitempty"`
+//	// In nanocores per second (instantaneous)
+//	CpuInst *CpuInstStats `json:"cpu_inst,omitempty"`
+//	// Disk IO statistics
+//	HasDiskIo bool           `json:"has_diskio"`
+//	DiskIo    v1.DiskIoStats `json:"diskio,omitempty"`
+//	// Memory statistics
+//	HasMemory bool           `json:"has_memory"`
+//	Memory    v1.MemoryStats `json:"memory,omitempty"`
+//	// Hugepage statistics
+//	HasHugetlb bool                       `json:"has_hugetlb"`
+//	Hugetlb    map[string]v1.HugetlbStats `json:"hugetlb,omitempty"`
+//	// Network statistics
+//	HasNetwork bool         `json:"has_network"`
+//	Network    NetworkStats `json:"network,omitempty"`
+//	// Processes statistics
+//	HasProcesses bool            `json:"has_processes"`
+//	Processes    v1.ProcessStats `json:"processes,omitempty"`
+//	// Filesystem statistics
+//	HasFilesystem bool         `json:"has_filesystem"`
+//	Filesystem    []v1.FsStats `json:"filesystem,omitempty"`
+//	// Task load statistics
+//	HasLoad bool         `json:"has_load"`
+//	Load    v1.LoadStats `json:"load_stats,omitempty"`
+//	// Custom Metrics
+//	HasCustomMetrics bool                      `json:"has_custom_metrics"`
+//	CustomMetrics    map[string][]v1.MetricVal `json:"custom_metrics,omitempty"`
+//	// Perf events counters
+//	PerfStats []v1.PerfStat `json:"perf_stats,omitempty"`
+//	// Statistics originating from perf uncore events.
+//	// Applies only for root container.
+//	PerfUncoreStats []v1.PerfUncoreStat `json:"perf_uncore_stats,omitempty"`
+//	// Referenced memory
+//	ReferencedMemory uint64 `json:"referenced_memory,omitempty"`
+//	// Resource Control (resctrl) statistics
+//	Resctrl v1.ResctrlStats `json:"resctrl,omitempty"`
+//}
 
 type ContainerStats struct {
 	// The time of this stat point.
