@@ -27,9 +27,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/google/cadvisor/cmd/internal/storage/test"
-	info "github.com/google/cadvisor/info/v1"
-	"github.com/google/cadvisor/storage"
+	"github.com/yidoyoon/cadvisor-lite/cmd/internal/storage/test"
+	info "github.com/yidoyoon/cadvisor-lite/info/v1"
+	"github.com/yidoyoon/cadvisor-lite/storage"
 
 	influxdb "github.com/influxdb/influxdb/client"
 	"github.com/stretchr/testify/assert"

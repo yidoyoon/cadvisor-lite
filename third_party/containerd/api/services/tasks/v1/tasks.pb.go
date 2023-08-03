@@ -6,8 +6,8 @@ package tasks
 import (
 	context "context"
 	fmt "fmt"
-	types "github.com/google/cadvisor/third_party/containerd/api/types"
-	task "github.com/google/cadvisor/third_party/containerd/api/types/task"
+	types "github.com/yidoyoon/cadvisor-lite/third_party/containerd/api/types"
+	task "github.com/yidoyoon/cadvisor-lite/third_party/containerd/api/types/task"
 	proto "github.com/gogo/protobuf/proto"
 	github_com_gogo_protobuf_sortkeys "github.com/gogo/protobuf/sortkeys"
 	github_com_gogo_protobuf_types "github.com/gogo/protobuf/types"

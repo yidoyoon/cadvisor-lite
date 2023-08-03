@@ -21,13 +21,13 @@ import (
 	"sync"
 	"time"
 
-	"github.com/google/cadvisor/container"
-	"github.com/google/cadvisor/container/docker"
-	dockerutil "github.com/google/cadvisor/container/docker/utils"
-	"github.com/google/cadvisor/devicemapper"
-	"github.com/google/cadvisor/fs"
-	info "github.com/google/cadvisor/info/v1"
-	"github.com/google/cadvisor/zfs"
+	"github.com/yidoyoon/cadvisor-lite/container"
+	"github.com/yidoyoon/cadvisor-lite/container/docker"
+	dockerutil "github.com/yidoyoon/cadvisor-lite/container/docker/utils"
+	"github.com/yidoyoon/cadvisor-lite/devicemapper"
+	"github.com/yidoyoon/cadvisor-lite/fs"
+	info "github.com/yidoyoon/cadvisor-lite/info/v1"
+	"github.com/yidoyoon/cadvisor-lite/zfs"
 )
 
 const (

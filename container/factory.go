@@ -20,9 +20,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/google/cadvisor/fs"
-	info "github.com/google/cadvisor/info/v1"
-	"github.com/google/cadvisor/watcher"
+	"github.com/yidoyoon/cadvisor-lite/fs"
+	info "github.com/yidoyoon/cadvisor-lite/info/v1"
+	"github.com/yidoyoon/cadvisor-lite/watcher"
 
 	"k8s.io/klog/v2"
 )

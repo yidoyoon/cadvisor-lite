@@ -25,7 +25,7 @@ import (
 	"github.com/prometheus/common/expfmt"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/google/cadvisor/container"
+	"github.com/yidoyoon/cadvisor-lite/container"
 )
 
 const machineMetricsFile = "testdata/prometheus_machine_metrics"

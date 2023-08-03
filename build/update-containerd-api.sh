@@ -30,13 +30,13 @@ curl -sSL "$CONTAINERD_TAR_GZ" | tar --wildcards --strip-components=1 --exclude=
 popd
 
 find "$GIT_ROOT/third_party/containerd/api" -name "*.go" \
-  -exec sed -i "s|tasktypes \"github.com/containerd/containerd/api/types/task\"|tasktypes \"github.com/google/cadvisor/third_party/containerd/api/types/task\"|" {} \;
+  -exec sed -i "s|tasktypes \"github.com/containerd/containerd/api/types/task\"|tasktypes \"github.com/yidoyoon/cadvisor-lite/third_party/containerd/api/types/task\"|" {} \;
 
 find "$GIT_ROOT/third_party/containerd/api" -name "*.go" \
-  -exec sed -i "s|task \"github.com/containerd/containerd/api/types/task\"|task \"github.com/google/cadvisor/third_party/containerd/api/types/task\"|" {} \;
+  -exec sed -i "s|task \"github.com/containerd/containerd/api/types/task\"|task \"github.com/yidoyoon/cadvisor-lite/third_party/containerd/api/types/task\"|" {} \;
 
 find "$GIT_ROOT/third_party/containerd/api" -name "*.go" \
-  -exec sed -i "s|types \"github.com/containerd/containerd/api/types\"|types \"github.com/google/cadvisor/third_party/containerd/api/types\"|" {} \;
+  -exec sed -i "s|types \"github.com/containerd/containerd/api/types\"|types \"github.com/yidoyoon/cadvisor-lite/third_party/containerd/api/types\"|" {} \;
 
 go mod tidy
 pushd "$GIT_ROOT/cmd"

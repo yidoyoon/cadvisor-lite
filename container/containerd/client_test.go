@@ -18,7 +18,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/google/cadvisor/container/containerd/containers"
+	"github.com/yidoyoon/cadvisor-lite/container/containerd/containers"
 )
 
 type containerdClientMock struct {

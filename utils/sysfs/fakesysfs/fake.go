@@ -19,7 +19,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/google/cadvisor/utils/sysfs"
+	"github.com/yidoyoon/cadvisor-lite/utils/sysfs"
 )
 
 // If we extend sysfs to support more interfaces, it might be worth making this a mock instead of a fake.

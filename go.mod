@@ -1,4 +1,4 @@
-module github.com/google/cadvisor
+module github.com/yidoyoon/cadvisor-lite
 
 go 1.19
 

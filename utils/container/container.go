@@ -15,7 +15,7 @@
 package container
 
 import (
-	info "github.com/google/cadvisor/info/v1"
+	info "github.com/yidoyoon/cadvisor-lite/info/v1"
 )
 
 // Returns the alias a container is known by within a certain namespace,

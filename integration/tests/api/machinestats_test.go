@@ -21,8 +21,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/google/cadvisor/integration/framework"
 	"github.com/opencontainers/runc/libcontainer/cgroups"
+	"github.com/yidoyoon/cadvisor-lite/integration/framework"
 )
 
 func TestMachineStatsIsReturned(t *testing.T) {
@@ -39,7 +39,7 @@ func TestMachineStatsIsReturned(t *testing.T) {
 		as.NotEqual(stat.Timestamp, time.Time{})
 		as.True(stat.Cpu.Usage.Total > 0)
 		// PerCPU CPU usage is not supported in cgroupv2 (cpuacct.usage_percpu)
-		// https://github.com/google/cadvisor/issues/3065
+		// https://github.com/yidoyoon/cadvisor-lite/issues/3065
 		if !cgroups.IsCgroup2UnifiedMode() {
 			as.True(len(stat.Cpu.Usage.PerCpu) > 0)
 		}

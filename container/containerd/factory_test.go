@@ -18,9 +18,9 @@ import (
 	"testing"
 
 	"github.com/containerd/typeurl"
-	"github.com/google/cadvisor/container/containerd/containers"
 	specs "github.com/opencontainers/runtime-spec/specs-go"
 	"github.com/stretchr/testify/assert"
+	"github.com/yidoyoon/cadvisor-lite/container/containerd/containers"
 )
 
 func TestIsContainerName(t *testing.T) {

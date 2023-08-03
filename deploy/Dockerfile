@@ -27,7 +27,7 @@ RUN if [ "$(uname --machine)" = "x86_64" ]; then \
     make -j all && \
     make install; fi
 
-WORKDIR /go/src/github.com/google/cadvisor
+WORKDIR /go/src/github.com/yidoyoon/cadvisor-lite
 
 # Cache Golang Dependencies for faster incremental builds
 ADD go.mod go.sum ./
@@ -57,7 +57,7 @@ RUN apk --no-cache add libc6-compat device-mapper findutils ndctl zfs && \
 # Grab cadvisor,libpfm4 and libipmctl from "build" container if they exist (libipmctl only works on amd64/x86_64).
 COPY --from=build /usr/local/lib/libpfm.so* /usr/local/lib/
 COPY --from=build /usr/local/lib/libipmctl.so* /usr/local/lib/
-COPY --from=build /go/src/github.com/google/cadvisor/_output/cadvisor /usr/bin/cadvisor
+COPY --from=build /go/src/github.com/yidoyoon/cadvisor-lite/_output/cadvisor /usr/bin/cadvisor
 
 EXPOSE 8080
 

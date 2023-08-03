@@ -20,7 +20,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/google/cadvisor/container/docker"
+	"github.com/yidoyoon/cadvisor-lite/container/docker"
 )
 
 const (

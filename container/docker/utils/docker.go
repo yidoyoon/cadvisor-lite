@@ -22,7 +22,7 @@ import (
 	"strings"
 
 	dockertypes "github.com/docker/docker/api/types"
-	v1 "github.com/google/cadvisor/info/v1"
+	v1 "github.com/yidoyoon/cadvisor-lite/info/v1"
 )
 
 const (

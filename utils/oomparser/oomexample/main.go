@@ -19,7 +19,7 @@ import (
 
 	"k8s.io/klog/v2"
 
-	"github.com/google/cadvisor/utils/oomparser"
+	"github.com/yidoyoon/cadvisor-lite/utils/oomparser"
 )
 
 // demonstrates how to run oomparser.OomParser to get OomInstance information
