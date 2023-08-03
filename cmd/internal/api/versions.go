@@ -24,7 +24,7 @@ import (
 	info "github.com/google/cadvisor/info/v1"
 	v2 "github.com/google/cadvisor/info/v2"
 	"github.com/google/cadvisor/manager"
-	"github.com/hodgesds/perf-utils"
+	_ "github.com/hodgesds/perf-utils"
 
 	"k8s.io/klog/v2"
 )
@@ -340,23 +340,23 @@ func (api *version2_0) HandleRequest(requestType string, request []string, m man
 	}
 	switch requestType {
 	case statsAPI:
-		errorWrapper := func() error {
-			return api.handleStatsAPI(request, opt, m, w)
-		}
+		//errorWrapper := func() error {
+		//	return api.handleStatsAPI(request, opt, m, w)
+		//}
 
-		cpuInstructions, _ := perf.CPUInstructions(errorWrapper)
-		cpuCycles, _ := perf.CPUCycles(errorWrapper)
-		cacheRef, _ := perf.CacheRef(errorWrapper)
-		cacheMiss, _ := perf.CacheMiss(errorWrapper)
-		cpuRefCycles, _ := perf.CPURefCycles(errorWrapper)
-		cpuClock, _ := perf.CPUClock(errorWrapper)
-		cpuTaskClock, _ := perf.CPUTaskClock(errorWrapper)
-		pageFaults, _ := perf.PageFaults(errorWrapper)
-		contextSwitches, _ := perf.ContextSwitches(errorWrapper)
-		minorPageFaults, _ := perf.MinorPageFaults(errorWrapper)
-		majorPageFaults, _ := perf.MajorPageFaults(errorWrapper)
-
-		fmt.Println(cpuInstructions.Value, cpuCycles.Value, cacheRef.Value, cacheMiss.Value, cpuRefCycles.Value, cpuClock.Value, cpuTaskClock.Value, pageFaults.Value, contextSwitches.Value, minorPageFaults.Value, majorPageFaults.Value)
+		//cpuInstructions, _ := perf.CPUInstructions(errorWrapper)
+		//cpuCycles, _ := perf.CPUCycles(errorWrapper)
+		//cacheRef, _ := perf.CacheRef(errorWrapper)
+		//cacheMiss, _ := perf.CacheMiss(errorWrapper)
+		//cpuRefCycles, _ := perf.CPURefCycles(errorWrapper)
+		//cpuClock, _ := perf.CPUClock(errorWrapper)
+		//cpuTaskClock, _ := perf.CPUTaskClock(errorWrapper)
+		//pageFaults, _ := perf.PageFaults(errorWrapper)
+		//contextSwitches, _ := perf.ContextSwitches(errorWrapper)
+		//minorPageFaults, _ := perf.MinorPageFaults(errorWrapper)
+		//majorPageFaults, _ := perf.MajorPageFaults(errorWrapper)
+		//
+		//fmt.Println(cpuInstructions.Value, cpuCycles.Value, cacheRef.Value, cacheMiss.Value, cpuRefCycles.Value, cpuClock.Value, cpuTaskClock.Value, pageFaults.Value, contextSwitches.Value, minorPageFaults.Value, majorPageFaults.Value)
 
 		return api.handleStatsAPI(request, opt, m, w)
 	default:
