@@ -24,6 +24,7 @@ import (
 	info "github.com/google/cadvisor/info/v1"
 	v2 "github.com/google/cadvisor/info/v2"
 	"github.com/google/cadvisor/manager"
+	"github.com/hodgesds/perf-utils"
 
 	"k8s.io/klog/v2"
 )
@@ -313,155 +314,102 @@ func (api *version2_0) SupportedRequestTypes() []string {
 	return []string{versionAPI, attributesAPI, eventsAPI, machineAPI, summaryAPI, statsAPI, specAPI, storageAPI, psAPI, customMetricsAPI}
 }
 
+func (api *version2_0) handleStatsAPI(request []string, opt v2.RequestOptions, m manager.Manager, w http.ResponseWriter) error {
+	name := getContainerName(request)
+
+	klog.V(4).Infof("Api - Stats: Looking for stats for container %q, options %+v", name, opt)
+	infos, err := m.GetRequestedContainersInfo(name, opt)
+	if err != nil {
+		if len(infos) == 0 {
+			return err
+		}
+		klog.Errorf("Error calling GetRequestedContainersInfo: %v", err)
+	}
+	contStats := make(map[string][]v2.DeprecatedContainerStats)
+	for name, cinfo := range infos {
+		contStats[name] = v2.DeprecatedStatsFromV1(cinfo)
+	}
+
+	return writeResult(contStats, w)
+}
+
 func (api *version2_0) HandleRequest(requestType string, request []string, m manager.Manager, w http.ResponseWriter, r *http.Request) error {
 	opt, err := GetRequestOptions(r)
 	if err != nil {
 		return err
 	}
 	switch requestType {
-	case versionAPI:
-		klog.V(4).Infof("Api - Version")
-		versionInfo, err := m.GetVersionInfo()
-		if err != nil {
-			return err
-		}
-		return writeResult(versionInfo.CadvisorVersion, w)
-	case attributesAPI:
-		klog.V(4).Info("Api - Attributes")
-
-		machineInfo, err := m.GetMachineInfo()
-		if err != nil {
-			return err
-		}
-		versionInfo, err := m.GetVersionInfo()
-		if err != nil {
-			return err
-		}
-		info := v2.GetAttributes(machineInfo, versionInfo)
-		return writeResult(info, w)
-	case machineAPI:
-		klog.V(4).Info("Api - Machine")
-
-		// TODO(rjnagal): Move machineInfo from v1.
-		machineInfo, err := m.GetMachineInfo()
-		if err != nil {
-			return err
-		}
-		return writeResult(machineInfo, w)
-	case summaryAPI:
-		containerName := getContainerName(request)
-		klog.V(4).Infof("Api - Summary for container %q, options %+v", containerName, opt)
-
-		stats, err := m.GetDerivedStats(containerName, opt)
-		if err != nil {
-			return err
-		}
-		return writeResult(stats, w)
 	case statsAPI:
-		name := getContainerName(request)
-		klog.V(4).Infof("Api - Stats: Looking for stats for container %q, options %+v", name, opt)
-		infos, err := m.GetRequestedContainersInfo(name, opt)
-		if err != nil {
-			if len(infos) == 0 {
-				return err
-			}
-			klog.Errorf("Error calling GetRequestedContainersInfo: %v", err)
+		errorWrapper := func() error {
+			return api.handleStatsAPI(request, opt, m, w)
 		}
-		contStats := make(map[string][]v2.DeprecatedContainerStats)
-		for name, cinfo := range infos {
-			contStats[name] = v2.DeprecatedStatsFromV1(cinfo)
-		}
-		return writeResult(contStats, w)
-	case customMetricsAPI:
-		containerName := getContainerName(request)
-		klog.V(4).Infof("Api - Custom Metrics: Looking for metrics for container %q, options %+v", containerName, opt)
-		infos, err := m.GetContainerInfoV2(containerName, opt)
-		if err != nil {
-			return err
-		}
-		contMetrics := make(map[string]map[string]map[string][]info.MetricValBasic)
-		for _, cinfo := range infos {
-			metrics := make(map[string]map[string][]info.MetricValBasic)
-			for _, contStat := range cinfo.Stats {
-				if len(contStat.CustomMetrics) == 0 {
-					continue
-				}
-				for name, allLabels := range contStat.CustomMetrics {
-					metricLabels := make(map[string][]info.MetricValBasic)
-					for _, metric := range allLabels {
-						if !metric.Timestamp.IsZero() {
-							metVal := info.MetricValBasic{
-								Timestamp:  metric.Timestamp,
-								IntValue:   metric.IntValue,
-								FloatValue: metric.FloatValue,
-							}
-							labels := metrics[name]
-							if labels != nil {
-								values := labels[metric.Label]
-								values = append(values, metVal)
-								labels[metric.Label] = values
-								metrics[name] = labels
-							} else {
-								metricLabels[metric.Label] = []info.MetricValBasic{metVal}
-								metrics[name] = metricLabels
-							}
-						}
-					}
-				}
-			}
-			contMetrics[containerName] = metrics
-		}
-		return writeResult(contMetrics, w)
-	case specAPI:
-		containerName := getContainerName(request)
-		klog.V(4).Infof("Api - Spec for container %q, options %+v", containerName, opt)
-		specs, err := m.GetContainerSpec(containerName, opt)
-		if err != nil {
-			return err
-		}
-		return writeResult(specs, w)
-	case storageAPI:
-		label := r.URL.Query().Get("label")
-		uuid := r.URL.Query().Get("uuid")
-		switch {
-		case uuid != "":
-			fi, err := m.GetFsInfoByFsUUID(uuid)
-			if err != nil {
-				return err
-			}
-			return writeResult(fi, w)
-		case label != "":
-			// Get a specific label.
-			fi, err := m.GetFsInfo(label)
-			if err != nil {
-				return err
-			}
-			return writeResult(fi, w)
-		default:
-			// Get all global filesystems info.
-			fi, err := m.GetFsInfo("")
-			if err != nil {
-				return err
-			}
-			return writeResult(fi, w)
-		}
-	case eventsAPI:
-		return handleEventRequest(request, m, w, r)
-	case psAPI:
-		// reuse container type from request.
-		// ignore recursive.
-		// TODO(rjnagal): consider count to limit ps output.
-		name := getContainerName(request)
-		klog.V(4).Infof("Api - Spec for container %q, options %+v", name, opt)
-		ps, err := m.GetProcessList(name, opt)
-		if err != nil {
-			return fmt.Errorf("process listing failed: %v", err)
-		}
-		return writeResult(ps, w)
+
+		cpuInstructions, _ := perf.CPUInstructions(errorWrapper)
+		cpuCycles, _ := perf.CPUCycles(errorWrapper)
+		cacheRef, _ := perf.CacheRef(errorWrapper)
+		cacheMiss, _ := perf.CacheMiss(errorWrapper)
+		cpuRefCycles, _ := perf.CPURefCycles(errorWrapper)
+		cpuClock, _ := perf.CPUClock(errorWrapper)
+		cpuTaskClock, _ := perf.CPUTaskClock(errorWrapper)
+		pageFaults, _ := perf.PageFaults(errorWrapper)
+		contextSwitches, _ := perf.ContextSwitches(errorWrapper)
+		minorPageFaults, _ := perf.MinorPageFaults(errorWrapper)
+		majorPageFaults, _ := perf.MajorPageFaults(errorWrapper)
+
+		fmt.Println(cpuInstructions.Value, cpuCycles.Value, cacheRef.Value, cacheMiss.Value, cpuRefCycles.Value, cpuClock.Value, cpuTaskClock.Value, pageFaults.Value, contextSwitches.Value, minorPageFaults.Value, majorPageFaults.Value)
+
+		return api.handleStatsAPI(request, opt, m, w)
 	default:
 		return fmt.Errorf("unknown request type %q", requestType)
 	}
 }
+
+//func (api *version2_0) HandleRequest(requestType string, request []string, m manager.Manager, w http.ResponseWriter, r *http.Request) error {
+//	opt, err := GetRequestOptions(r)
+//	if err != nil {
+//		return err
+//	}
+//	switch requestType {
+//	case statsAPI:
+//		errorWrapper := func() error {
+//			return api.handleStatsAPI(request, opt, m, w)
+//		}
+//
+//		fmt.Printf("-----------------------------------\n")
+//		perfFuncs := map[string]func(func() error) (*perf.ProfileValue, error){
+//			"CPU instructions":  perf.CPUInstructions,
+//			"CPU cycles":        perf.CPUCycles,
+//			"Cache ref":         perf.CacheRef,
+//			"Cache miss":        perf.CacheMiss,
+//			"CPU ref cycles":    perf.CPURefCycles,
+//			"CPU clock":         perf.CPUClock,
+//			"CPU task clock":    perf.CPUTaskClock,
+//			"Page faults":       perf.PageFaults,
+//			"Context switches":  perf.ContextSwitches,
+//			"Minor page faults": perf.MinorPageFaults,
+//			"Major page faults": perf.MajorPageFaults,
+//		}
+//		keys := make([]string, 0, len(perfFuncs))
+//		for k := range perfFuncs {
+//			keys = append(keys, k)
+//		}
+//		sort.Strings(keys)
+//		var metricsLine string
+//		for _, k := range keys {
+//			perfFunc := perfFuncs[k]
+//			profileValue, err := perfFunc(errorWrapper)
+//			if err != nil {
+//				log.Fatal(err)
+//			}
+//			metricsLine += fmt.Sprintf("%s: %v, ", k, profileValue.Value)
+//		}
+//		fmt.Println(metricsLine)
+//
+//		return api.handleStatsAPI(request, opt, m, w)
+//	default:
+//		return fmt.Errorf("unknown request type %q", requestType)
+//	}
+//}
 
 type version2_1 struct {
 	baseVersion *version2_0
