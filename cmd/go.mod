@@ -6,7 +6,7 @@ go 1.19
 // The github.com/yidoyoon/cadvisor-lite/cmd module is built using the Makefile
 // from a clone of the github.com/yidoyoon/cadvisor-lite repository, so we
 // always use the relative local source rather than specifying a module version.
-require github.com/yidoyoon/cadvisor-lite v0.0.0
+require github.com/yidoyoon/cadvisor-lite v0.0.1
 
 // Use the relative local source of the github.com/yidoyoon/cadvisor-lite library to build
 replace github.com/yidoyoon/cadvisor-lite => ../
